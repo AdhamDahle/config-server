@@ -1,0 +1,36 @@
+spring:
+  server:
+    port: 8080  # Port where the application runs
+  application:
+    name: pricer
+  config:
+    import: optional:configserver:http://localhost:8888
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: '*'  # Expose all management endpoints
+  kafka:
+    ## Consumer Kafka
+    consumer:
+      bootstrap-servers: localhost:9092  # Kafka broker address
+      group-id: pricer-group  # Consumer group ID
+      auto-offset-reset: earliest  # Start reading from the beginning if no offset is found
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer  # Key deserializer class
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer  # Value deserializer with error handling
+      properties:
+        spring:
+          deserializer:
+            value:
+              delegate:
+                class: org.apache.kafka.common.serialization.StringDeserializer  # Delegate deserializer
+    ## Producer Kafka
+    producer:
+      bootstrap-servers: localhost:9092  # Kafka broker address for producer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer  # Key serializer class
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer  # Value serializer class
+
+# Insights Variables Values
+minutes-saved:
+  summary: 5  # Default minutes saved summary value
+  email-sent: 10  # Default minutes saved for email sent
