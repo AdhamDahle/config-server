@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: pricer
+  config:
+    ## UPDATE PRODUCTION CONFIG SERVER LINK
+    import: optional:configserver:http://localhost:8888
+    active:
+      ## Activate with env variables
+      on-profile: "prod"
