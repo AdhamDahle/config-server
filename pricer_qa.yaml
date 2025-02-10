@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: pricer
+  config:
+    ## UPDATE QA CONFIG SERVER LINK
+    import: optional:configserver:http://localhost:8888
+    active:
+      on-profile: "qa"
