@@ -1,6 +1,4 @@
 spring:
-  server:
-    port: 8080  # Port where the application runs
   application:
     name: pricer
   config:
